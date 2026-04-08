@@ -63,8 +63,8 @@ const cancelAppointment = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Appointment not found.' });
     }
 
-    // Only the professor of this appointment may cancel
-    if (!appointment.professor.equals(req.user._id)) {    // appointment belong to professor who's requesting the cancel
+     // appointment belong to professor who's requesting the cancel
+    if (!appointment.professor.equals(req.user._id)) {    
       await session.abortTransaction();
       return res.status(403).json({ success: false, message: 'Only the assigned professor can cancel this appointment.' });
     }

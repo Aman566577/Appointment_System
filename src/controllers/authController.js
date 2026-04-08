@@ -1,3 +1,4 @@
+// register creates user , hashes password , return token 
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
