@@ -5,7 +5,7 @@ const Slot = require('../models/Slot');
 // POST /api/appointments  — Student books a slot
 const bookAppointment = async (req, res) => {
   const session = await mongoose.startSession();
-  session.startTransaction(); // both happen together or neither happens 
+  session.startTransaction(); // both happen together or neither happens (slot booked and creating appointment record )
 
   try {
     const { slotId } = req.body;
