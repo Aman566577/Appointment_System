@@ -1,3 +1,4 @@
+// Represent when professor is free
 const mongoose = require('mongoose');
 
 const slotSchema = new mongoose.Schema(
@@ -16,7 +17,7 @@ const slotSchema = new mongoose.Schema(
       type: Date,
       required: [true, 'End time is required'],
     },
-    isBooked: {
+    isBooked: {   // important flag 
       type: Boolean,
       default: false,
       index: true,

@@ -1,3 +1,4 @@
+// Stores Students and Professors 
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -19,9 +20,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Password is required'],
       minlength: 6,
-      select: false, // never returned in queries by default
+      select: false, // never returned in queries by default even if wo forget to hide password
     },
-    role: {
+    role: {              // only difference (student or professor)
       type: String,
       enum: ['student', 'professor'],
       required: true,

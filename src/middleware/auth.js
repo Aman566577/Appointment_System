@@ -1,3 +1,4 @@
+// protect middleware 
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -19,7 +20,7 @@ const protect = async (req, res, next) => {
   }
 };
 
-// Role-based access guard
+// Role-based access guard , pass the allowed roles
 const authorize = (...roles) => (req, res, next) => {
   if (!roles.includes(req.user.role)) {
     return res.status(403).json({

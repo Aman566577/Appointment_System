@@ -1,3 +1,4 @@
+// connection b/w a student and a professor 
 const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema(

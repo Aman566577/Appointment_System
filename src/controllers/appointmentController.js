@@ -5,7 +5,7 @@ const Slot = require('../models/Slot');
 // POST /api/appointments  — Student books a slot
 const bookAppointment = async (req, res) => {
   const session = await mongoose.startSession();
-  session.startTransaction();
+  session.startTransaction(); // both happen together or neither happens 
 
   try {
     const { slotId } = req.body;
@@ -64,7 +64,7 @@ const cancelAppointment = async (req, res) => {
     }
 
     // Only the professor of this appointment may cancel
-    if (!appointment.professor.equals(req.user._id)) {
+    if (!appointment.professor.equals(req.user._id)) {    // appointment belong to professor who's requesting the cancel
       await session.abortTransaction();
       return res.status(403).json({ success: false, message: 'Only the assigned professor can cancel this appointment.' });
     }
@@ -81,7 +81,7 @@ const cancelAppointment = async (req, res) => {
     await appointment.save({ session });
 
     // Free up the slot again
-    await Slot.findByIdAndUpdate(appointment.slot, { isBooked: false }, { session });
+    await Slot.findByIdAndUpdate(appointment.slot, { isBooked: false }, { session }); 
 
     await session.commitTransaction();
 
