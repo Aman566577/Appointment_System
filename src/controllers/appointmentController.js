@@ -1,3 +1,5 @@
+const User = require('../models/User');
+const { sendBookingEmail, sendCancellationEmail } = require('../utils/emailService');
 const mongoose = require('mongoose');
 const Appointment = require('../models/Appointment');
 const Slot = require('../models/Slot');
@@ -32,6 +34,11 @@ const bookAppointment = async (req, res) => {
     );
 
     await session.commitTransaction();
+
+    // Send booking emails
+    const student = await User.findById(req.user._id).select('email');
+    const professor = await User.findById(slot.professor).select('email');
+     await sendBookingEmail(student.email, professor.email, slot);
 
     const populated = await Appointment.findById(appointment[0]._id)
       .populate('student', 'name email')
@@ -84,6 +91,12 @@ const cancelAppointment = async (req, res) => {
     await Slot.findByIdAndUpdate(appointment.slot, { isBooked: false }, { session }); 
 
     await session.commitTransaction();
+
+    // Send cancellation emails
+      const student = await User.findById(appointment.student).select('email');
+      const professor = await User.findById(appointment.professor).select('email');
+      const slotData = await Slot.findById(appointment.slot);
+      await sendCancellationEmail(student.email, professor.email, slotData);
 
     const populated = await Appointment.findById(appointment._id)
       .populate('student', 'name email')
