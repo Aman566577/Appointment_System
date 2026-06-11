@@ -9,7 +9,7 @@ A Node.js + MongoDB REST API enabling students to book appointments with profess
 - **Framework:** Express.js
 - **Database:** MongoDB (Mongoose ODM)
 - **Auth:** JWT (jsonwebtoken) + bcryptjs
-- - **Email:** NodeMailer (appointment confirmation & cancellation alerts)
+- **Email:** NodeMailer (appointment confirmation & cancellation alerts)
 
 ---
 
