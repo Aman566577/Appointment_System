@@ -9,6 +9,7 @@ A Node.js + MongoDB REST API enabling students to book appointments with profess
 - **Framework:** Express.js
 - **Database:** MongoDB (Mongoose ODM)
 - **Auth:** JWT (jsonwebtoken) + bcryptjs
+- - **Email:** NodeMailer (appointment confirmation & cancellation alerts)
 
 ---
 
@@ -65,6 +66,8 @@ npm run dev        # development with nodemon
 | `MONGO_URI`     | MongoDB connection string        | `mongodb://localhost:27017/college_appointments` |
 | `JWT_SECRET`    | Secret key for JWT signing       | *(required)*                         |
 | `JWT_EXPIRES_IN`| JWT expiry duration              | `7d`                                 |
+| `EMAIL`         | Gmail address for NodeMailer     | *(required)*                         |
+| `EMAIL_PASS`    | Gmail app password for NodeMailer| *(required)*                         |
 
 ---
 
@@ -270,4 +273,5 @@ Step 7: Professor P1 cancels A1's appointment
 | **Unique slot index** | Compound unique index on `(professor, startTime)` prevents duplicate slots |
 | **Slot freed on cancel** | Transaction resets `isBooked=false` so the slot becomes bookable again |
 | **Passwords** | bcrypt hashed at salt rounds 12; never returned in API responses via `select: false` |
+| **Email Notifications** | NodeMailer sends confirmation email on booking & cancellation |
 | **Role enforcement** | Middleware-level `authorize()` guard — no business logic leakage |
